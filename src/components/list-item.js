@@ -1,120 +1,66 @@
 import React from "react";
 import { arrayOf, shape, string, bool } from "prop-types";
 import styled from "styled-components";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import UserItem from "../components/user-item";
 
 const Container = styled.div`
-  display: block;
+  margin: 0.5em 0;
 `;
-
-const Complete = styled.span`
-  animation: appearingText 0.6s ease-in;
-  color: #37cc2d;
-  @keyframes appearingText {
-    0% {
-      color: transparent;
-    }
-    100% {
-      color: #37cc2d;
-    }
-  }
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
 `;
-
-const Pending = styled.span`
-color: #f0dd65;
-}
+const Subtext = styled.div`
+  color: #828282;
+  font-size: 0.7em;
 `;
-const StatusName = styled.span`
-  color: #757575;
+const Story = styled.a`
+  font-size: 0.9em;
+  color: #363636;
 `;
-
-const Subheading = styled.h3`
-  text-transform: uppercase;
-  margin-top: 1.5em;
-  font-size: 1em;
-`;
-
-const SecondHeading = styled.h2`
-  text-transform: uppercase;
-  font-size: 1.2em;
-`;
-const Operational = styled.span`
-  animation: appearingText 0.6s ease-in;
-  color: #37cc2d;
-  @keyframes appearingText {
-    0% {
-      color: transparent;
-    }
-    100% {
-      color: #37cc2d;
-    }
-  }
-`;
-
-const ServiceDown = styled.span`
-animation: appearingText 0.6s ease-in;
-color: #d94514;
-@keyframes appearingText {
-  0% {
-    color: transparent;
-  }
-  100% {
-    color: #d94514;
-  }
-}
-`;
-
 
 const ListItem = data => {
-
   return (
-    <Container>
-      <SecondHeading>
-        {data.provider}
-      </SecondHeading>
+    <Router>
       <Container>
-        <StatusName>
-          call status:
-          {data.pending ? (
-            <Pending> pending</Pending>
-          ) : (
-            <Complete> complete</Complete>
-          )}
-        </StatusName>
+        <Wrapper>
+          <Story href={data.url} target="_blank" noopener noreferrer>
+            {data.title}
+          </Story>
+          <Subtext>
+            {data.score} points by
+            <Link
+              to={`/user?id=${data.creator}`}
+              style={{ textDecoration: "none" }}
+            >
+              {" "}
+              {data.creator}{" "}
+            </Link>
+            {data.time} 5h ago
+          </Subtext>
+        </Wrapper>
       </Container>
-      <Container>
-        <Subheading>Statuses</Subheading>
-        {data.statuses.map((item, i) => {
-          return (
-            <Container key={i}>
-              <StatusName>{item.name}:</StatusName>
-              {item.status ? (
-                <Operational> operational</Operational>
-              ) : (
-                <ServiceDown> service down</ServiceDown>
-              )}
-            </Container>
-          );
-        })}
-      </Container>
-      <Container>
-        <StatusName>
-        </StatusName>
-      </Container>
-    </Container>
+      <Switch>
+        <Route path={`/user?id=${data.creator}`}>
+          <UserItem />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
-ListItem.propTypes = {
-  data: arrayOf(
-    shape({
-      provider: string,
-      statuses: arrayOf(
-        shape({
-          name: string,
-          status: bool
-        })
-      )
-    })
-  )
-};
+// ListItem.propTypes = {
+//   data: arrayOf(
+//     shape({
+//       statuses: arrayOf(
+//         shape({
+//           name: string,
+//           status: bool
+//         })
+//       )
+//     })
+//   )
+// };
 export default ListItem;

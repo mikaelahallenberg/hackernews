@@ -1,57 +1,91 @@
 import React, { Component } from "react";
-import { string, func, shape, arrayOf, objectOf, object, number } from "prop-types";
-import { connect } from "react-redux";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import ListView from '../views/list-view';
-import UserView from '../views/user-view';
-import fetchStatuses from '../actions/story-action';
-import styled from 'styled-components';
+  string,
+  func,
+  shape,
+  arrayOf,
+  objectOf,
+  object,
+  number
+} from "prop-types";
+import { connect } from "react-redux";
+import ListItem from '../components/list-item';
+import fetchStatuses from "../actions/story-action";
+import styled from "styled-components";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const Container = styled.section`
-display: flex;
-max-width: 40em;
-flex-direction: column;
+  max-width: 80%;
+  margin: 0 auto;
+  font-family: Verdana, sans-serif;
 `;
 const Wrapper = styled.div`
-width: 32em;
-display: flex;
-justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
+  color: #363636;
 `;
-const Heading = styled.h1`
-font-size: 1.6em;
-color: 
+const Menu = styled.div`
+  background-color: #f58c47;
+  height: 1.8em;
+  display: flex;
+  align-items: center;
+  color: #1a1a1a;
+  font-size: 0.8em;
+  font-weight: 700;
 `;
-class ViewContainer extends Component {
-  componentDidMount() {
-    this.props.dispatch(fetchStatuses())
-    console.log(this.props)
-  }
-  render() {
-    
-    return (
-        <Router>
-          <Container>
-          <Heading>View container</Heading>
-        
-          <ListView />
-          {/* <Wrapper>
-          {this.props.data.map((item, i) => {
-            return <ListItem 
-              key={i} 
-              provider={item.provider}
-              pending={item.pending}
-              statuses={item.statuses}/>
-            })}
-          </Wrapper> */}
-        </Container>
-      </Router>
+const ListItemWrapper = styled.div`
+  padding: 0 0 0.8em 1.7em;
+`;
 
-    );
+const Icon = styled.span`
+height: 1.2em
+width: 1.2em
+border: 1px solid #ffff;
+color: #ffff;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 .5em 0 .15em;
+
+`;
+
+class ViewContainer extends Component {
+  componentWillMount() {
+    this.props.dispatch(fetchStatuses());
+  }
+  
+  render() {
+    if (this.props.data.length !== 0  ) {
+      return (
+        <Router>
+        <Container>
+          <Wrapper>
+            <Menu>
+              <Link to="/" style={{'textDecoration': 'none'}}>
+              <Icon>Y</Icon>
+              </Link>
+              Hacker News
+            </Menu>
+            <ListItemWrapper>
+              {this.props.data.stories.map((item, index)=> {
+              return <ListItem 
+              key={index}
+              creator={item.creator}
+              title={item.title}
+              score={item.score}
+              time={item.time}
+              url={item.url}/>
+              })}
+
+            </ListItemWrapper>
+          </Wrapper>
+        </Container>
+        </Router>
+      );
+    } 
+    return null
+ 
   }
 }
 
@@ -91,6 +125,6 @@ const mapStateToProps = state => {
     data: state.data,
     error: state.error
   };
-}
+};
 
 export default connect(mapStateToProps)(ViewContainer);

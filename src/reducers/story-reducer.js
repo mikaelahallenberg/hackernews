@@ -30,7 +30,6 @@ export default (state = initialStatus, action) => {
       };
     }
     case FETCH_SUCCESS: {
-      console.log(action.data)
       return {
         ...state,
         data: action.data
