@@ -1,20 +1,25 @@
 import React from "react";
-import {  number, string} from "prop-types";
+import { number, string } from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
+import Menu from '../components/menu';
 
 const Container = styled.div`
-  margin: 0.5em 0;
   display: flex;
   flex-direction: column;
-  margin: 1em 0;
   color: #828282;
+  max-width: 80%;
+  margin: 0 auto;
+  font-family: Verdana, sans-serif;
+  background-color: bisque;
+
 `;
 const Wrapper = styled.div`
-display: flex;
-flex-direction: column;
-width: 6em;
+  display: flex;
+  flex-direction: column;
+  width: 7em;
+  padding: 0.8em 1.7em;
+
 `;
 
 const Paragraph = styled.p`
@@ -24,20 +29,28 @@ const Paragraph = styled.p`
 `;
 const Span = styled.span`
   margin-left: 0.5rem;
-
 `;
 
 const UserItem = data => {
-  console.log('moi')
+  console.log("moi");
   return (
-      <Container>
-        <Wrapper>
-         <Paragraph>user: <Span>fsfs{data.creator}</Span></Paragraph>
-          <Paragraph>time: <Span>eer{data.time}</Span></Paragraph>
-          <Paragraph>karma: <Span>fsfs{data.karma}</Span></Paragraph>
-          <Paragraph>about: <Span>submissions{data.submissions}</Span></Paragraph>
-        </Wrapper>
-      </Container>
+    <Container>
+      <Menu />
+      <Wrapper>
+        <Paragraph>
+          user: <Span>fsfs{data.creator}</Span>
+        </Paragraph>
+        <Paragraph>
+          time: <Span>eer{data.time}</Span>
+        </Paragraph>
+        <Paragraph>
+          karma: <Span>fsfs{data.karma}</Span>
+        </Paragraph>
+        <Paragraph>
+          about: <Span>submissions{data.submissions}</Span>
+        </Paragraph>
+      </Wrapper>
+    </Container>
   );
 };
 
@@ -45,7 +58,7 @@ UserItem.propTypes = {
   creator: string,
   karma: number,
   time: number,
-  submissions: string,
+  submissions: string
 };
 
 // UserItem.propTypes = {
@@ -84,6 +97,6 @@ const mapStateToProps = state => {
     data: state.data,
     error: state.error
   };
-}
+};
 
 export default connect(mapStateToProps)(UserItem);

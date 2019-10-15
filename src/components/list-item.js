@@ -2,7 +2,6 @@ import React from "react";
 import { string, number } from "prop-types";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import UserItem from "../components/user-item";
 
 const Container = styled.div`
   margin: 0.5em 0;
@@ -31,7 +30,7 @@ const ListItem = data => {
           <Subtext>
             {data.score} points by
             <Link
-              to={`/user?id=${data.creator}`}
+              to={`/user/${data.creator}`}
               style={{ textDecoration: "none" }}>
               {" "}{data.creator}{" "}
             </Link>

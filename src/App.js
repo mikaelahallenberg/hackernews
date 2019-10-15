@@ -18,12 +18,11 @@ const App = () => {
       <Provider store={store}>
         <Router>
           <ErrorBoundary>
-            <ViewContainer />
-          </ErrorBoundary>
           <Switch>
           <Route exact path="/" component={ViewContainer} />
-          <Route path="/user?id=:id" component={UserItem} />
+          <Route path="/user/:id" component={UserItem} />
           </Switch>
+          </ErrorBoundary>
 
         </Router>
       </Provider>
