@@ -32,7 +32,6 @@ const Span = styled.span`
 `;
 
 const UserItem = data => {
-  console.log("moi");
   return (
     <Container>
       <Menu />

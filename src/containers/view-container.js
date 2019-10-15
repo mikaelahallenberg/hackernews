@@ -8,6 +8,8 @@ import ListItem from '../components/list-item';
 import fetchStatuses from "../actions/story-action";
 import styled from "styled-components";
 import Menu from '../components/menu';
+const moment = require('moment');
+
 
 const Container = styled.section`
   max-width: 80%;
@@ -31,7 +33,7 @@ class ViewContainer extends Component {
   componentWillMount() {
     this.props.dispatch(fetchStatuses());
   }
-  
+
   render() {
     if (this.props.data.length !== 0  ) {
       return (
@@ -45,7 +47,7 @@ class ViewContainer extends Component {
               creator={item.creator}
               title={item.title}
               score={item.score}
-              time={item.time}
+              time={moment(moment.unix(item.time).format()).fromNow()}
               url={item.url}/>
               })}
 
