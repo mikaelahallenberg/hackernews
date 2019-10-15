@@ -6,7 +6,7 @@ import reducers from "./reducers/story-reducer";
 import ViewContainer from "./containers/view-container";
 import UserItem from './components/user-item';
 import ErrorBoundary from "./components/error";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

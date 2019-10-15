@@ -1,7 +1,7 @@
 import React from "react";
 import { string, number } from "prop-types";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   margin: 0.5em 0;
@@ -21,6 +21,7 @@ const Story = styled.a`
 `;
 
 const ListItem = data => {
+
   return (
       <Container>
         <Wrapper>
@@ -34,7 +35,7 @@ const ListItem = data => {
               style={{ textDecoration: "none" }}>
               {" "}{data.creator}{" "}
             </Link>
-            {data.time} 5h ago
+            posted at {data.time}
           </Subtext>
         </Wrapper>
       </Container>
@@ -44,7 +45,7 @@ const ListItem = data => {
 ListItem.propTypes = {
   creator: string,
   score: number,
-  time: number,
+  time: string,
   title: string,
   url:string
 };

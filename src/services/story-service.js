@@ -40,7 +40,7 @@ class StoryService {
     const best20 = data.splice(0, 20);
     const promises = [];
     best20.map(storyId => {
-      promises.push(this.getStory(storyId));
+      return promises.push(this.getStory(storyId));
     });
 
     const storyData = await Promise.all(promises);

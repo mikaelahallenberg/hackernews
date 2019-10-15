@@ -9,6 +9,7 @@ const initialStatus = {
 };
 
 export default (state = initialStatus, action) => {
+
   switch (action.type) {
     case FETCH_START: {
       const data = {
@@ -30,6 +31,7 @@ export default (state = initialStatus, action) => {
       };
     }
     case FETCH_SUCCESS: {
+   
       return {
         ...state,
         data: action.data
