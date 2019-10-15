@@ -1,9 +1,7 @@
 import React from "react";
-import { arrayOf, shape, string, bool } from "prop-types";
+import {  number, string} from "prop-types";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
 
 
 const Container = styled.div`
@@ -30,6 +28,7 @@ const Span = styled.span`
 `;
 
 const UserItem = data => {
+  console.log('moi')
   return (
       <Container>
         <Wrapper>
@@ -42,6 +41,12 @@ const UserItem = data => {
   );
 };
 
+UserItem.propTypes = {
+  creator: string,
+  karma: number,
+  time: number,
+  submissions: string,
+};
 
 // UserItem.propTypes = {
 //   dispatch: func.isRequired,

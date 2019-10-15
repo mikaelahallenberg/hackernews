@@ -1,5 +1,5 @@
 import React from "react";
-import { arrayOf, shape, string, bool } from "prop-types";
+import { string, number } from "prop-types";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import UserItem from "../components/user-item";
@@ -23,7 +23,6 @@ const Story = styled.a`
 
 const ListItem = data => {
   return (
-    <Router>
       <Container>
         <Wrapper>
           <Story href={data.url} target="_blank" noopener noreferrer>
@@ -33,34 +32,21 @@ const ListItem = data => {
             {data.score} points by
             <Link
               to={`/user?id=${data.creator}`}
-              style={{ textDecoration: "none" }}
-            >
-              {" "}
-              {data.creator}{" "}
+              style={{ textDecoration: "none" }}>
+              {" "}{data.creator}{" "}
             </Link>
             {data.time} 5h ago
           </Subtext>
         </Wrapper>
       </Container>
-      <Switch>
-        <Route path={`/user?id=${data.creator}`}>
-          <UserItem />
-        </Route>
-      </Switch>
-    </Router>
   );
 };
 
-// ListItem.propTypes = {
-//   data: arrayOf(
-//     shape({
-//       statuses: arrayOf(
-//         shape({
-//           name: string,
-//           status: bool
-//         })
-//       )
-//     })
-//   )
-// };
+ListItem.propTypes = {
+  creator: string,
+  score: number,
+  time: number,
+  title: string,
+  url:string
+};
 export default ListItem;
