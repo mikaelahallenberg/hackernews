@@ -14,18 +14,18 @@ class StoryService {
     };
   }
 
-  // async getUser(userId) {
-  //   const response = await fetch(
-  //     `https://hacker-news.firebaseio.com/v0/user/${story.by}.json?print=pretty`
-  //   );
-  //   const user = await response.json();
-  //   return {
-  //     id: user.id,
-  //     created: user.created,
-  //     karma: user.karma,
-  //     submitted: user.submitted.length
-  //   };
-  // }
+  async getUser(userId) {
+    const response = await fetch(
+      `https://hacker-news.firebaseio.com/v0/user/${userId}.json?print=pretty`
+    );
+    const user = await response.json();
+    return {
+      id: user.id,
+      created: user.created,
+      karma: user.karma,
+      submitted: user.submitted.length
+    };
+  }
 
   async getStories() {
     const bestStories = await fetch(
@@ -49,15 +49,6 @@ class StoryService {
     };
   }
 
-  // async getUsers() {
-  //   const promises = [];
-  //   promises.push(this.getUser(userId));
-
-  //   const userData = await Promise.all(promises);
-  //   return {
-  //     users: userData
-  //   };
-  // }
 }
 
 export default StoryService;

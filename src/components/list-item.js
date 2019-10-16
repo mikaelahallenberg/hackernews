@@ -31,7 +31,7 @@ const ListItem = data => {
           <Subtext>
             {data.score} points by
             <Link
-              to={`/user/${data.creator}`}
+              to={`/${data.creator}`}
               style={{ textDecoration: "none" }}>
               {" "}{data.creator}{" "}
             </Link>

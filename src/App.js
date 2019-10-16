@@ -20,10 +20,9 @@ const App = () => {
           <ErrorBoundary>
           <Switch>
           <Route exact path="/" component={ViewContainer} />
-          <Route path="/user/:id" component={UserItem} />
+          <Route path="/:id" component={UserItem} />
           </Switch>
           </ErrorBoundary>
-
         </Router>
       </Provider>
     </div>
