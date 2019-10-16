@@ -12,7 +12,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 margin: 0 .5em 0 .15em;
-
 `;
 
 const Wrapper = styled.div`
@@ -25,15 +24,18 @@ const Wrapper = styled.div`
   font-weight: 700;
 `;
 
+
+
 const Menu = () => {
-    return(
-        <Wrapper>
-        <Link to="/" style={{'textDecoration': 'none'}}>
-        <Icon>Y</Icon>
+
+    return (
+      <Wrapper>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Icon>Y</Icon>
         </Link>
         Hacker News
       </Wrapper>
-    )
+    );
+  };
 
-}
 export default Menu;

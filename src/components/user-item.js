@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import Menu from "../components/menu";
 import fetchStatuses from "../actions/story-action";
+const moment = require("moment");
+
 
 
 const Container = styled.div`
@@ -18,30 +20,34 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   padding: 0.8em 1.7em;
+  line-height: 1.5;
 `;
 
 const Paragraph = styled.p`
   margin: 0;
+  font-size: 0.9em;
 `;
+const Time = styled.p`
+  margin: 0;
+  font-size: 0.9em;
 
+  color: #363636;
+`;
 const Subwrapper = styled.div`
   margin-left: 0.5rem;
 `;
 
 class UserItem extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     const username = window.location.pathname.substr(1)
     this.props.dispatch(fetchStatuses(username));
-
-
   }
-  componentWillUnmount() {
-    this.props.dispatch(fetchStatuses());
-
-  }
+ 
   render() {
     if (this.props.data.user) {
+      const time = this.props.data.user.created;
+      const formattedTime = moment(moment.unix(time)).format('MMMM DD, YYYY');
 
     return (
       <Container>
@@ -57,7 +63,7 @@ class UserItem extends Component {
   
           <Subwrapper>
             <Paragraph>{this.props.data.user.id}</Paragraph>
-            <Paragraph>{this.props.data.user.created}</Paragraph>
+            <Time>{formattedTime}</Time>
             <Paragraph>{this.props.data.user.karma}</Paragraph>
             <Paragraph>{this.props.data.user.submitted}</Paragraph>
           </Subwrapper>

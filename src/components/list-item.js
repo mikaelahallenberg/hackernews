@@ -29,13 +29,14 @@ const ListItem = data => {
             {data.title}
           </Story>
           <Subtext>
-            {data.score} points by
+            {data.score} points by{" "}
             <Link
               to={`/${data.creator}`}
-              style={{ textDecoration: "none" }}>
-              {" "}{data.creator}{" "}
+              style={{  color: '#828282' }}>
+              {data.creator}
+              
             </Link>
-            posted at {data.time}
+            {" "}posted at {data.time}
           </Subtext>
         </Wrapper>
       </Container>

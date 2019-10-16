@@ -10,7 +10,7 @@ const moment = require("moment");
 const Container = styled.section`
   max-width: 80%;
   margin: 0 auto;
-  font-family: Verdana, sans-serif;  
+  font-family: Verdana, sans-serif;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -18,24 +18,58 @@ const Wrapper = styled.div`
   background-color: bisque;
   color: #363636;
 `;
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+const Button = styled.button`
+  cursor: pointer;
+  margin-top: -1.5rem;
+  color: #1a1a1a;
+  border: none;
+  background-color: transparent;
+`;
 
 const ListItemWrapper = styled.div`
-  padding: 0 0 0.8em 1.7em;
+  padding: 0.8em 1.7em;
 `;
 
 class ViewContainer extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortByScore: false
+    };
     this.props.dispatch(fetchStatuses());
+  }
+
+  sortStories() {
+    this.setState({sortByScore: !this.state.sortByScore})
   }
 
   render() {
     if (this.props.data.length !== 0) {
+
+      let stories;
+      if (this.state.sortByScore) {
+        stories = this.props.data.stories.slice().sort(
+          (a, b) => parseFloat(b.score) - parseFloat(a.score)
+        );
+      } else {
+        stories = this.props.data.stories.slice()
+      }
+
       return (
         <Container>
           <Wrapper>
             <Menu />
+            <ButtonWrapper>
+              <Button onClick={() => this.sortStories()}>
+                {this.state.sortByScore ? "| unsort |" : "| sort by best score |"}
+              </Button>
+            </ButtonWrapper>
             <ListItemWrapper>
-              {this.props.data.stories.map((item, index) => {
+              {stories.map((item, index) => {
                 return (
                   <ListItem
                     key={index}
