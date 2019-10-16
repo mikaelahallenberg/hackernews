@@ -1,8 +1,10 @@
-import React from "react";
+import  React, { Component }from "react";
 import { number, string } from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import Menu from '../components/menu';
+import Menu from "../components/menu";
+import fetchStatuses from "../actions/story-action";
+
 
 const Container = styled.div`
   display: flex;
@@ -12,45 +14,60 @@ const Container = styled.div`
   margin: 0 auto;
   font-family: Verdana, sans-serif;
   background-color: bisque;
-
 `;
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 7em;
   padding: 0.8em 1.7em;
-
 `;
 
 const Paragraph = styled.p`
   margin: 0;
-  display: flex;
-  justify-content: space-between;
 `;
-const Span = styled.span`
+
+const Subwrapper = styled.div`
   margin-left: 0.5rem;
 `;
 
-const UserItem = data => {
-  return (
-    <Container>
-      <Menu />
-      <Wrapper>
-        <Paragraph>
-          user: <Span>fsfs{data.creator}</Span>
-        </Paragraph>
-        <Paragraph>
-          time: <Span>eer{data.time}</Span>
-        </Paragraph>
-        <Paragraph>
-          karma: <Span>fsfs{data.karma}</Span>
-        </Paragraph>
-        <Paragraph>
-          about: <Span>submissions{data.submissions}</Span>
-        </Paragraph>
-      </Wrapper>
-    </Container>
-  );
+class UserItem extends Component {
+
+  componentWillMount() {
+    const username = window.location.pathname.substr(1)
+    this.props.dispatch(fetchStatuses(username));
+
+
+  }
+  componentWillUnmount() {
+    this.props.dispatch(fetchStatuses());
+
+  }
+  render() {
+    if (this.props.data.user) {
+
+    return (
+      <Container>
+        <Menu />
+        <Wrapper>
+          
+          <Subwrapper>
+            <Paragraph>user:</Paragraph>
+            <Paragraph>time:</Paragraph>
+            <Paragraph>karma:</Paragraph>
+            <Paragraph>submissions:</Paragraph>
+          </Subwrapper>
+  
+          <Subwrapper>
+            <Paragraph>{this.props.data.user.id}</Paragraph>
+            <Paragraph>{this.props.data.user.created}</Paragraph>
+            <Paragraph>{this.props.data.user.karma}</Paragraph>
+            <Paragraph>{this.props.data.user.submitted}</Paragraph>
+          </Subwrapper>
+  
+        </Wrapper>
+      </Container>
+    );
+  }
+  return null
+}
 };
 
 UserItem.propTypes = {
@@ -60,31 +77,7 @@ UserItem.propTypes = {
   submissions: string
 };
 
-// UserItem.propTypes = {
-//   dispatch: func.isRequired,
-//   error: object,
-//   data: objectOf(
-//     shape({
-//       stories: arrayOf(
-//         shape({
-//           creator: string,
-//           score: number,
-//           time: number,
-//           title: string,
-//           url: string,
-//         })
-//       ),
-//       users: arrayOf(
-//         shape({
-//           created: string,
-//           id: string,
-//           karma: string,
-//           submitted: number
-//         })
-//       ),
-//     }),
-//   )
-// };
+
 
 UserItem.defaultProps = {
   error: null,
