@@ -29,6 +29,8 @@ const Paragraph = styled.p`
 `;
 const Time = styled.p`
   margin: 0;
+  font-size: 0.9em;
+
   color: #363636;
 `;
 const Subwrapper = styled.div`
@@ -37,16 +39,11 @@ const Subwrapper = styled.div`
 
 class UserItem extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     const username = window.location.pathname.substr(1)
     this.props.dispatch(fetchStatuses(username));
-
-
   }
-  componentWillUnmount() {
-    this.props.dispatch(fetchStatuses());
-
-  }
+ 
   render() {
     if (this.props.data.user) {
       const time = this.props.data.user.created;

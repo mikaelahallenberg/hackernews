@@ -38,44 +38,38 @@ class ViewContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ""
+      sortByScore: false
     };
-  }
-  componentDidMount() {
     this.props.dispatch(fetchStatuses());
-    this.setState({ data: this.props.data.stories });
   }
 
-  sortStories(data) {
-    let sortedStories;
-    if (data = this.props.data.stories) {
-      const stories = data;
-      sortedStories = stories.sort(
-        (a, b) => parseFloat(b.score) - parseFloat(a.score)
-      );
-      this.setState({ data: sortedStories });
-      return sortedStories;
-
-    } else if (this.state.data === sortedStories) {
-      this.setState({data: this.props.data.stories})
-    } 
+  sortStories() {
+    this.setState({sortByScore: !this.state.sortByScore})
   }
-
 
   render() {
     if (this.props.data.length !== 0) {
+
+      let stories;
+      if (this.state.sortByScore) {
+        stories = this.props.data.stories.slice().sort(
+          (a, b) => parseFloat(b.score) - parseFloat(a.score)
+        );
+      } else {
+        stories = this.props.data.stories.slice()
+      }
+
       return (
         <Container>
-      
           <Wrapper>
-            <Menu/>
+            <Menu />
             <ButtonWrapper>
-          <Button onClick={() => this.sortStories(this.props.data.stories)}>
-           {this.state.data === this.props.data.stories ? '| sort worst scored |' : '| sort best scored |' } 
-          </Button>
-          </ButtonWrapper>
+              <Button onClick={() => this.sortStories()}>
+                {this.state.sortByScore ? "| unsort |" : "| sort by best score |"}
+              </Button>
+            </ButtonWrapper>
             <ListItemWrapper>
-              {this.props.data.stories.map((item, index) => {
+              {stories.map((item, index) => {
                 return (
                   <ListItem
                     key={index}
