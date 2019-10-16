@@ -34,7 +34,6 @@ const ListItem = data => {
               to={`/${data.creator}`}
               style={{  color: '#828282' }}>
               {data.creator}
-              
             </Link>
             {" "}posted at {data.time}
           </Subtext>

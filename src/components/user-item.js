@@ -3,7 +3,7 @@ import { number, string } from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import Menu from "../components/menu";
-import fetchStatuses from "../actions/story-action";
+import fetchResults from "../actions/story-action";
 const moment = require("moment");
 
 
@@ -15,7 +15,7 @@ const Container = styled.div`
   max-width: 80%;
   margin: 0 auto;
   font-family: Verdana, sans-serif;
-  background-color: bisque;
+  background-color: #f6f6ef;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ class UserItem extends Component {
 
   componentDidMount() {
     const username = window.location.pathname.substr(1)
-    this.props.dispatch(fetchStatuses(username));
+    this.props.dispatch(fetchResults(username));
   }
  
   render() {
