@@ -38,7 +38,7 @@ export default (state = initialStatus, action) => {
       };
     }
     case FETCH_USER: {
-      const oldStories = state.data.stories.slice()
+      const oldStories = state.data.stories ? state.data.stories.slice() : []
       return {
         ...state,
         data: {
