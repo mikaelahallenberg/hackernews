@@ -54,7 +54,7 @@ const updateUser = (username, dispatch) => {
   handleUserResult(dispatch, user);
 };
 
-export const fetchStatuses = username => async dispatch => {
+export const fetchResults = username => async dispatch => {
   if (username) {
     updateUser(username, dispatch);
   } else {
@@ -62,4 +62,4 @@ export const fetchStatuses = username => async dispatch => {
   }
 };
 
-export default fetchStatuses;
+export default fetchResults;

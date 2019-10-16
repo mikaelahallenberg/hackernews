@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { string, number } from "prop-types";
 import { connect } from "react-redux";
 import ListItem from "../components/list-item";
-import fetchStatuses from "../actions/story-action";
+import fetchResults from "../actions/story-action";
 import styled from "styled-components";
 import Menu from "../components/menu";
 const moment = require("moment");
@@ -15,7 +15,7 @@ const Container = styled.section`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: bisque;
+  background-color: #f6f6ef;
   color: #363636;
 `;
 const ButtonWrapper = styled.div`
@@ -40,11 +40,11 @@ class ViewContainer extends Component {
     this.state = {
       sortByScore: false
     };
-    this.props.dispatch(fetchStatuses());
+    this.props.dispatch(fetchResults());
   }
 
   sortStories() {
-    this.setState({sortByScore: !this.state.sortByScore})
+    this.setState({sortByScore: !this.state.sortByScore});
   }
 
   render() {
@@ -56,7 +56,7 @@ class ViewContainer extends Component {
           (a, b) => parseFloat(b.score) - parseFloat(a.score)
         );
       } else {
-        stories = this.props.data.stories.slice()
+        stories = this.props.data.stories.slice();
       }
 
       return (

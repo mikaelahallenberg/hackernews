@@ -24,10 +24,7 @@ const Wrapper = styled.div`
   font-weight: 700;
 `;
 
-
-
 const Menu = () => {
-
     return (
       <Wrapper>
         <Link to="/" style={{ textDecoration: "none" }}>
